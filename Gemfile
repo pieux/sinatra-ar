@@ -6,7 +6,8 @@ gem 'rake'
 gem 'rabl'
 gem 'oj'
 
-gem 'sinatra-activerecord'
+gem 'activerecord'
+# gem 'sinatra-activerecord'
 gem 'sqlite3', :group => [:development, :test]
 
 group :development do

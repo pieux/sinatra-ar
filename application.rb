@@ -25,6 +25,18 @@ else
   logger = ::Logger.new("/dev/null")
 end
 
+require 'rabl'
+Rabl.register!
+
+# require 'sinatra/activerecord'
+# set :database_file, 'config/database.yml'
+
+require 'active_record'
+ActiveRecord::Base.establish_connection YAML::load(File.open('config/database.yml'))[ENV["RACK_ENV"]]
+
+# release thread current connection return to connection pool in multi-thread mode
+use ActiveRecord::ConnectionAdapters::ConnectionManagement
+
 # Set autoload directory
 %w{models controllers}.each do |dir|
   Dir.glob(File.expand_path("../#{dir}", __FILE__) + '/**/*.rb').each do |file|
@@ -32,8 +44,3 @@ end
   end
 end
 
-require 'rabl'
-Rabl.register!
-
-require 'sinatra/activerecord'
-set :database_file, 'config/database.yml'
