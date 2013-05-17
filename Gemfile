@@ -3,7 +3,10 @@ source 'http://ruby.taobao.org'
 gem 'sinatra', '>= 1.0'
 gem 'rake'
 
-group :develop do
+gem 'rabl'
+gem 'oj'
+
+group :development do
   gem 'thin'
   gem 'pry'
   gem 'sinatra-contrib'

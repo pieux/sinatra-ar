@@ -4,3 +4,6 @@
     require file
   end
 end
+
+require 'rabl'
+Rabl.register!

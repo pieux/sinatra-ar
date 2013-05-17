@@ -1,3 +1,7 @@
 get '/' do
-  'Hello world!'
+  'Hello Sinatra!'
+end
+
+get '/rabl' do
+  rabl :foo, :format => "json"
 end
