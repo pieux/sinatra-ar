@@ -1,5 +1,4 @@
-require 'rubygems'
-# require 'bundler/setup'
+# require 'rubygems'
 require 'rspec/core/rake_task'
 
 task :default => :test
