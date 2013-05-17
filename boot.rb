@@ -6,7 +6,7 @@ ENV['RACK_ENV'] ||= "development"
 # Set up gems listed in the Gemfile.
 ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../Gemfile', __FILE__)
 require 'bundler/setup' if File.exists?(ENV['BUNDLE_GEMFILE'])
-Bundler.require(:default, ENV['RACK_ENV'])
+Bundler.require(:default, ENV['RACK_ENV'].to_sym)
 
 require 'sinatra'
 require 'sinatra/reloader' if development?
@@ -34,3 +34,8 @@ require File.expand_path("../application", __FILE__)
 # 比如 GEM_HOME, GEM_PATH 之类, 不过我不会查看这些环境变量
 # 顺便说下, 查看 $LOAD_PATH, ruby -e 'puts $LOAD_PAHT'
 # $LOAD_PATH 简写 $:
+#
+# 4. require 'rubygems' ?
+# 为什么要有这一行?
+# 暂时不知道. 好像也是修改 $LOAD_PATH
+# http://docs.rubygems.org/read/chapter/3#page70
