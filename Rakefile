@@ -40,25 +40,6 @@ namespace :db do
     ActiveRecord::Base.establish_connection DB_CONFIG
   end
 
-  desc 'create db for current RACK_ENV'
-  task create: :env do
-    puts "creating db #{DB_CONFIG['database']}"
-    ActiveRecord::Base.establish_connection DB_CONFIG.merge('database' => nil)
-    ActiveRecord::Base.connection.create_database DB_CONFIG['database'], charset: 'utf8'
-    ActiveRecord::Base.establish_connection DB_CONFIG
-  end
-
-  desc 'drop db for current RACK_ENV'
-  task drop: :env do
-    if get_env('RACK_ENV') == 'production'
-      puts 'cannot drop production database!'
-    else
-      puts "dropping db #{DB_CONFIG['database']}"
-      ActiveRecord::Base.establish_connection DB_CONFIG.merge('database' => nil)
-      ActiveRecord::Base.connection.drop_database DB_CONFIG['database']
-    end
-  end
-
   # desc "Migrate the database through scripts in db/migrate. Target specific version with VERSION=x"
   # task :migrate do
   #   ActiveRecord::Migrator.migrate('db/migrate', ENV["VERSION"] ? ENV["VERSION"].to_i : nil )
