@@ -8,6 +8,7 @@ end
 
 get '/user/seed' do
   User.create :name => 'Pieux Xi'
+  User.create :name => 'Xi 33'
   'succeed!'
 end
 
