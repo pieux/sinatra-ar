@@ -1,3 +1,3 @@
 before do
-  # content_type :txt
+  content_type 'application/json'
 end

@@ -28,9 +28,6 @@ end
 require 'rabl'
 Rabl.register!
 
-# require 'sinatra/activerecord'
-# set :database_file, 'config/database.yml'
-
 require 'active_record'
 ActiveRecord::Base.establish_connection YAML::load(File.open('config/database.yml'))[ENV["RACK_ENV"]]
 

@@ -1,4 +1,5 @@
 require 'rubygems'
+require 'bundler/setup' # fix warning: Unresolved specs during Gem::Specification.reset
 
 def get_env name, default=nil
   ENV[name] || ENV[name.downcase] || default
@@ -21,7 +22,7 @@ end
 # ActiveRecord tasks
 require 'active_record'
 namespace :db do
-  desc "prepare environment (utility)"
+  desc 'prepare environment (utility)'
   task :env do
     require 'bundler'
     env = get_env 'RACK_ENV', 'development'
@@ -33,13 +34,13 @@ namespace :db do
     puts "loaded config for #{env}"
   end
 
-  desc "connect db (utility)"
+  desc 'connect db (utility)'
   task connect: :env do
     "connecting to #{DB_CONFIG['database']}"
     ActiveRecord::Base.establish_connection DB_CONFIG
   end
 
-  desc "create db for current RACK_ENV"
+  desc 'create db for current RACK_ENV'
   task create: :env do
     puts "creating db #{DB_CONFIG['database']}"
     ActiveRecord::Base.establish_connection DB_CONFIG.merge('database' => nil)
@@ -50,7 +51,7 @@ namespace :db do
   desc 'drop db for current RACK_ENV'
   task drop: :env do
     if get_env('RACK_ENV') == 'production'
-      puts "cannot drop production database!"
+      puts 'cannot drop production database!'
     else
       puts "dropping db #{DB_CONFIG['database']}"
       ActiveRecord::Base.establish_connection DB_CONFIG.merge('database' => nil)
@@ -77,7 +78,7 @@ namespace :db do
     ActiveRecord::Migrator.rollback 'db/migrate', step
   end
 
-  desc "show current schema version"
+  desc 'show current schema version'
   task version: :connect do
     puts ActiveRecord::Migrator.current_version
   end
